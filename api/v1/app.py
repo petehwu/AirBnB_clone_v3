@@ -6,9 +6,10 @@ from api.v1.views import app_views
 
 app = flask.Flask(__name__)
 
-app_views = register_blueprint('app_views')
+app_views = register_blueprint(app_views)
 
 @app.teardown_appcontext
+def storage_close(value):
     storage.close()
 
 if __name__ == "__main__":
