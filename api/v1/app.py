@@ -4,9 +4,11 @@ from flask import Flask
 from models import storage
 from api.v1.views import app_views
 
-app = flask.Flask(__name__)
+app = Flask(__name__)
 
-app_views = register_blueprint(app_views)
+app.register_blueprint(app_views)
+app.url_map.strict_slashes = False
+
 
 @app.teardown_appcontext
 def storage_close(value):
