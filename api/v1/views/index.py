@@ -10,5 +10,4 @@ from models import storage
 def status():
     """returns a json ok string
     """
-    return jsonify({"status":"OK"})
-
+    return jsonify({"status": "OK"})
