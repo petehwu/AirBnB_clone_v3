@@ -12,6 +12,8 @@ from models.state import State
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
 @app_views.route('/states/<state_id>', methods=['GET'])
 def get_state(state_id=None):
+    """Retrieves list of all State objects in storage. If id is given,
+    retrieves State based on given id"""
     states = [state.to_dict() for state in storage.all("State").values()]
     if state_id is None:
         return jsonify(states)
@@ -25,6 +27,7 @@ def get_state(state_id=None):
 @app_views.route('/states/<state_id>',
                  methods=['DELETE'], strict_slashes=False)
 def delete_state(state_id=None):
+    """Deletes State objects based on given id"""
     state = storage.get("State", state_id)
     if state is None:
         abort(404)
@@ -36,6 +39,7 @@ def delete_state(state_id=None):
 
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
 def post_state():
+    """Creates a State object based on get_json request"""
     state = State()
     data = request.get_json()
     if data is None:
@@ -51,6 +55,7 @@ def post_state():
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def put_state(state_id=None):
+    """Updates a State object based on id using response from get_json"""
     state = storage.get("State", state_id)
     data = request.get_json()
     if state is None:
