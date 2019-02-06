@@ -29,5 +29,5 @@ def page_not_found(error):
 
 if __name__ == "__main__":
     HBNB_MYSQL_HOST = getenv('HBNB_MYSQL_HOST', default='0.0.0.0')
-    HBNB_API_PORT = getenv('HBNB_API_PORT', default='5000')
-    app.run(host=HBNB_MYSQL_HOST, port=HBNB_API_PORT, threaded=True)
+    HBNB_API_PORT = getenv('HBNB_API_PORT', default=5000)
+    app.run(host=HBNB_MYSQL_HOST, port=int(HBNB_API_PORT), threaded=True)
