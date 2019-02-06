@@ -30,7 +30,7 @@ def delete_amenity(amenity_id):
     """Delete amenity by id"""
     amenity = storage.get("Amenity", amenity_id)
     if amenity is None:
-        abord(404)
+        abort(404)
     else:
         storage.delete(amenity)
         storage.save()
