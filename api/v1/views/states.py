@@ -41,9 +41,9 @@ def delete_state(state_id=None):
 def post_state():
     """Creates a State object based on get_json request"""
     state = State()
-    data = request.get_json()
+    data = request.get_json(silent=True)
     if data is None:
-        abort(400, 'Not a JSON')
+        abort (400, 'Not a JSON')
     if 'name' not in data.keys():
             abort(400, 'Missing name')
     for key, value in data.items():
@@ -57,7 +57,7 @@ def post_state():
 def put_state(state_id=None):
     """Updates a State object based on id using response from get_json"""
     state = storage.get("State", state_id)
-    data = request.get_json()
+    data = request.get_json(silent=True)
     if state is None:
         abort(404)
     print("STATE: {}".format(state))
