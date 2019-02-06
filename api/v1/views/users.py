@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""create get, delete, post, put methods for user instance"""
 from api.v1.views import app_views
 from flask import jsonify, abort, request
 from models import storage
