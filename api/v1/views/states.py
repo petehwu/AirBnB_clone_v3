@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """ new State object view. Handles default RESTful API actions"""
-from flask import Flask
 from flask import jsonify
 from flask import abort
 from api.v1.views import app_views
@@ -43,7 +42,7 @@ def post_state():
     state = State()
     data = request.get_json(silent=True)
     if data is None:
-        abort (400, 'Not a JSON')
+        abort(400, 'Not a JSON')
     if 'name' not in data.keys():
             abort(400, 'Missing name')
     for key, value in data.items():
@@ -60,7 +59,6 @@ def put_state(state_id=None):
     data = request.get_json(silent=True)
     if state is None:
         abort(404)
-    print("STATE: {}".format(state))
     if data is None:
         abort(400, "Not a JSON")
     else:
