@@ -12,7 +12,8 @@ app = Flask(__name__)
 
 app.register_blueprint(app_views)
 app.url_map.strict_slashes = False
-app.config['JSONIFY_PRETTYPRINT_REGULAR']=True
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
+
 
 @app.teardown_appcontext
 def storage_close(value):
@@ -25,8 +26,8 @@ def page_not_found(error):
     """return page not found error"""
     return make_response(jsonify({"error": "Not found"}), 404)
 
+
 if __name__ == "__main__":
     HBNB_MYSQL_HOST = getenv('HBNB_MYSQL_HOST', default='0.0.0.0')
     HBNB_API_PORT = getenv('HBNB_API_PORT', default='5000')
     app.run(host=HBNB_MYSQL_HOST, port=HBNB_API_PORT, threaded=True)
-
