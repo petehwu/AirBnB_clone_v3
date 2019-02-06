@@ -80,7 +80,7 @@ class DBStorage:
         if cls is None or id is None:
             return None
         objects = self.all(cls)
-        key  = "{}.{}".format(cls, id)
+        key = "{}.{}".format(cls, id)
         if key in objects.keys():
             return objects[key]
         else:
