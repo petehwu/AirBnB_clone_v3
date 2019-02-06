@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-
-
+"""imports app_views. creates route for status"""
 from api.v1.views import app_views
 from flask import jsonify
 from models import storage
