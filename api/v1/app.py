@@ -5,6 +5,7 @@ from models import storage
 from api.v1.views import app_views
 from flask import jsonify
 from flask import make_response
+from os import getenv
 
 
 app = Flask(__name__)
@@ -25,4 +26,7 @@ def page_not_found(error):
     return make_response(jsonify({"error": "Not found"}), 404)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port='5000', threaded=True)
+    HBNB_MYSQL_HOST = getenv('HBNB_MYSQL_HOST', default='0.0.0.0')
+    HBNB_API_PORT = getenv('HBNB_API_PORT', default='5000')
+    app.run(host=HBNB_MYSQL_HOST, port=HBNB_API_PORT, threaded=True)
+
