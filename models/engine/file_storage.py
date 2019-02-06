@@ -88,4 +88,4 @@ class FileStorage:
         elif cls not in classes:
             return 0
         else:
-            return(len(self.all(cls))
+            return(len(self.all(cls)))
