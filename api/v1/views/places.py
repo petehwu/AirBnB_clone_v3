@@ -6,6 +6,7 @@ from models import storage
 from models.place import Place
 from models.city import City
 from models.user import User
+from models import storage_t
 
 
 @app_views.route('/cities/<city_id>/places',
@@ -90,3 +91,40 @@ def update_place(place_id):
             setattr(p, k, v)
     storage.save()
     return(jsonify(p.to_dict()), 200)
+
+
+@app_views.route('/places_search',
+                 strict_slashes=False, methods=['POST'])
+def search_place():
+    """This method searches for place based on input
+    """
+    vals = request.get_json(silent=True)
+    if vals is None:
+        abort(400, "Not a JSON")
+    s_list = vals.get("states", [])
+    c_list = vals.get("cities", [])
+    a_list = vals.get("amenities", [])
+    if (not vals or (not s_list and not c_list and not a_list)):
+        return (jsonify([p.to_dict() for p in storage.all("Place").values()]))
+    for s in s_list:
+        c_list = c_list + [c2.id for c2 in storage.get("State", s).cities]
+    places = []
+    p_dict = storage.all("Place")
+    for p in p_dict.values():
+        if p.city_id in c_list:
+            places.append(p)
+    if not a_list:
+        return (jsonify([p.to_dict() for p in places]))
+    else:
+        p2 = []
+        if (storage_t == 'db'):
+            storage.reload()
+            for p in places:
+                p_a_list = [am.id for am in p.amenities]
+                if (all(elem in p_a_list for elem in a_list)):
+                    p2.append(storage.get("Place", p.id))
+        else:
+            for p in places:
+                if (all(elem in p.amenity_ids for elem in a_list)):
+                    p2.append(storage.get("Place", p.id))
+        return (jsonify([p.to_dict() for p in p2]))
