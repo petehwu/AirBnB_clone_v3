@@ -116,7 +116,7 @@ def search_place():
             places.append(p)
     if not a_list:
         if not places:
-            abort(404)
+            return (jsonify([{}]),201)
         else:
             return (jsonify([p.to_dict() for p in places]), 201)
     else:
@@ -134,6 +134,6 @@ def search_place():
                 if (all(elem in p.amenity_ids for elem in a_list)):
                     p2.append(storage.get("Place", p.id))
         if not p2:
-            abort(404)
+            return(jsonify([{}]), 201)
         else:
             return (jsonify([p.to_dict() for p in p2]), 201)
