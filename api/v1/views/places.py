@@ -116,6 +116,8 @@ def search_place():
     if not a_list:
         return (jsonify([p.to_dict() for p in places]))
     else:
+        if not c_list:
+            places = list(storage.all("Place").values())
         p2 = []
         if (storage_t == 'db'):
             storage.reload()
