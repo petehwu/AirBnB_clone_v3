@@ -106,7 +106,7 @@ def search_place():
     a_list = vals.get("amenities", [])
     if (not vals or (not s_list and not c_list and not a_list)):
         objs = storage.all("Place")
-        if not obj:
+        if not objs:
             abort(404)
         else:
             return (jsonify([p.to_dict() for p in objs.values()]),
