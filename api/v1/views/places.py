@@ -105,8 +105,12 @@ def search_place():
     c_list = vals.get("cities", [])
     a_list = vals.get("amenities", [])
     if (not vals or (not s_list and not c_list and not a_list)):
-        return (jsonify([p.to_dict() for p in storage.all("Place").values()]),
-                200)
+        objs = storage.all("Place")
+        if not obj:
+            abort(404)
+        else:
+            return (jsonify([p.to_dict() for p in objs.values()]),
+                    200)
     for s in s_list:
         c_list = c_list + [c2.id for c2 in storage.get("State", s).cities]
     places = []
