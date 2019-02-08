@@ -124,10 +124,11 @@ def search_place():
             places = list(storage.all("Place").values())
         p2 = []
         if (storage_t == 'db'):
-            storage.reload()
             for p in places:
                 p_a_list = [am.id for am in p.amenities]
                 if (all(elem in p_a_list for elem in a_list)):
+                    del p.amenities
+                    del p.reviews
                     p2.append(storage.get("Place", p.id))
         else:
             for p in places:
